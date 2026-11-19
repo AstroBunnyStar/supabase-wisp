@@ -1,0 +1,15 @@
+# Minimal Supabase CLI config for this project.
+# Replace project_id with your own project ref (Dashboard -> Project Settings).
+project_id = "your-project-ref"
+
+# WebSocket clients in a browser cannot send an Authorization header, so this
+# function must not require a JWT. Put WISP_TOKEN in front of it instead.
+[functions.wisp]
+verify_jwt = false
+import_map = "./functions/wisp/deno.json"
+
+# Long-lived sockets need the worker to survive between requests. Without
+# per_worker, `supabase functions serve` terminates the instance after each
+# request and WebSockets close immediately.
+[edge_runtime]
+policy = "per_worker"
